@@ -13,12 +13,11 @@ month = options["m"].to_i
 first_day = Date.new(year, month, 1)
 last_day = Date.new(year, month, -1)
 
-# 年月を出力
-month_year = first_day.strftime(format = "%B") + " " + first_day.strftime(format = "%G")
-puts month_year.center(20)
+# タイトルを出力
+puts (month.to_s + "月" + " " + year.to_s).center(20)
 
 # 曜日を出力
-puts "Su Mo Tu We Th Fr Sa"
+puts "日 月 火 水 木 金 土"
 
 # 日を出力
 (first_day..last_day).each do |d|
