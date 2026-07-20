@@ -6,9 +6,9 @@ require "optparse"
 default_year = Date.today.year.to_s
 default_month = Date.today.month.to_s
 
-options = ARGV.getopts("y:m:", "y:#{default_year}", "m:#{default_month}")
-year = options["y"].to_i
-month = options["m"].to_i
+options = ARGV.getopts("y:m:")
+year  = (options["y"] || Date.today.year.to_s).to_i
+month = (options["m"] || Date.today.month.to_s).to_i
 
 first_day = Date.new(year, month, 1)
 last_day = Date.new(year, month, -1)
