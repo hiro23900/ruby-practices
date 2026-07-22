@@ -3,9 +3,6 @@
 require "date"
 require "optparse"
 
-default_year = Date.today.year.to_s
-default_month = Date.today.month.to_s
-
 options = ARGV.getopts("y:m:")
 year  = (options["y"] || Date.today.year.to_s).to_i
 month = (options["m"] || Date.today.month.to_s).to_i
