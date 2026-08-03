@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 score = ARGV[0]
 scores = score.split(',')
@@ -16,9 +17,9 @@ frames = shots.each_slice(2).to_a
 
 point = frames.map.with_index do |frame, i|
   if i <= 8
-    if frame[0] == 10 and frames[i + 1][0] == 10
+    if frame[0] == 10 && frames[i + 1][0] == 10
       10 + 10 + frames[i + 2][0]
-    elsif frame[0] == 10 and frames[i + 1][0] != 10
+    elsif frame[0] == 10 && frames[i + 1][0] != 10
       10 + frames[i + 1].sum
     elsif frame.sum == 10
       10 + frames[i + 1][0]
@@ -26,9 +27,9 @@ point = frames.map.with_index do |frame, i|
       frame.sum
     end
   elsif i == 9
-    if frame[0] == 10 and frames[10][0] == 10
+    if frame[0] == 10 && frames[10][0] == 10
       10 + 10 + frames[11].sum
-    elsif frame[0] == 10 and frames[10][0] != 10
+    elsif frame[0] == 10 && frames[10][0] != 10
       10 + frames[10].sum
     elsif frame.sum == 10
       10 + frames[10][0]
