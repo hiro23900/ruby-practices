@@ -14,6 +14,9 @@ scores.each do |s|
 end
 
 frames = shots.each_slice(2).to_a
+p frames
+p frames[9..]
+p frames[9..].flatten
 
 point = frames.map.with_index do |frame, i|
   if i <= 8
