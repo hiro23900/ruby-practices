@@ -14,9 +14,6 @@ scores.each do |s|
 end
 
 frames = shots.each_slice(2).to_a
-p frames
-p frames[9..]
-p frames[9..].flatten
 
 point = frames[0..8].map.with_index do |frame, i|
   next frame.sum if frame.sum != 10 # スペアでもストライクでもないとき
