@@ -30,15 +30,7 @@ point = frames.map.with_index do |frame, i|
       frame.sum
     end
   elsif i == 9
-    if frame[0] == 10 && frames[10][0] == 10
-      10 + 10 + frames[11].sum
-    elsif frame[0] == 10 && frames[10][0] != 10
-      10 + frames[10].sum
-    elsif frame.sum == 10
-      10 + frames[10][0]
-    else
-      frame.sum
-    end
+    frames[9..].flatten.sum
   else
     0
   end
