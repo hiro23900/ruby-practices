@@ -18,21 +18,14 @@ p frames
 p frames[9..]
 p frames[9..].flatten
 
-point = frames.map.with_index do |frame, i|
-  if i <= 8
-    if frame[0] == 10 && frames[i + 1][0] == 10
-      10 + 10 + frames[i + 2][0]
-    elsif frame[0] == 10 && frames[i + 1][0] != 10
-      10 + frames[i + 1].sum
-    elsif frame.sum == 10
-      10 + frames[i + 1][0]
-    else
-      frame.sum
-    end
-  elsif i == 9
-    frames[9..].flatten.sum
-  else
-    0
+point = frames[0..8].map.with_index do |frame, i|
+  next frame.sum if frame.sum != 10 # スペアでもストライクでもないとき
+
+  if frame[0] == 10
+    frames[i + 1][0] == 10 ? 20 + frames[i + 2][0] : 10 + frames[i + 1].sum
+  elsif frame.sum == 10
+    10 + frames[i + 1][0]
   end
 end
+point << frames[9..].flatten.sum
 puts point.sum
