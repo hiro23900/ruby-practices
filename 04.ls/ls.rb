@@ -4,10 +4,10 @@
 COL_SPACE = 2
 
 def main
-  table_row_count = 4
+  files = Dir.glob('*')
+  table_row_count = (files.length % 3).zero? ? files.length / 3 : files.length / 3 + 1
 
   alined_files = []
-  files = Dir.glob('*')
   files.each do |file|
     alined_files << file.ljust(12 + COL_SPACE)
   end
