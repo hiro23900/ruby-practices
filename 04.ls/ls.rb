@@ -11,7 +11,7 @@ def main
               ary.values_at(0..(table_col_count - 1))
             end
   end
-  pp arys
+  pp arys.transpose
 end
 
 main
