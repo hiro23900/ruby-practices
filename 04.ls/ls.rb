@@ -4,7 +4,7 @@
 COL_SPACE = 2
 
 def main
-  table_col_count = 4
+  table_row_count = 4
 
   alined_files = []
   files = Dir.glob('*')
@@ -13,11 +13,11 @@ def main
   end
 
   arys = []
-  alined_files.each_slice(table_col_count) do |ary|
-    arys << if ary.length == table_col_count
+  alined_files.each_slice(table_row_count) do |ary|
+    arys << if ary.length == table_row_count
               ary
             else
-              ary.values_at(0..(table_col_count - 1))
+              ary.values_at(0..(table_row_count - 1))
             end
   end
   pp arys.transpose
