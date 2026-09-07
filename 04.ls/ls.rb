@@ -5,4 +5,4 @@ arys = []
 Dir.glob('*').each_slice(3) do |ary|
   arys << ary
 end
-p arys
+pp arys
