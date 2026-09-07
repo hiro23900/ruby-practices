@@ -2,12 +2,13 @@
 # frozen_string_literal: true
 
 def main
+  table_col_count = 4
   arys = []
-  Dir.glob('*').each_slice(3) do |ary|
-    arys << if ary.length == 3
+  Dir.glob('*').each_slice(table_col_count) do |ary|
+    arys << if ary.length == table_col_count
               ary
             else
-              ary.values_at(0..2)
+              ary.values_at(0..(table_col_count - 1))
             end
   end
   pp arys
