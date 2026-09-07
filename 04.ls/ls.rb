@@ -20,7 +20,10 @@ def main
               ary.values_at(0..(table_row_count - 1))
             end
   end
-  pp arys.transpose
+
+  arys.transpose.each do |list|
+    puts list.join(' ')
+  end
 end
 
 main
