@@ -3,9 +3,9 @@
 
 COL_SPACE = 2
 
-def main
+def main(cols_count)
   files = Dir.glob('*')
-  rows_count = (files.length % 3).zero? ? files.length / 3 : files.length / 3 + 1
+  rows_count = (files.length % cols_count).zero? ? files.length / cols_count : files.length / cols_count + 1
 
   alined_files = []
   files.each do |file|
@@ -26,4 +26,5 @@ def main
   end
 end
 
-main
+cols_count = 3
+main(cols_count)
