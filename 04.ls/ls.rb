@@ -8,7 +8,7 @@ def main(cols_count)
 
   alined_files = []
   files.each do |file|
-    alined_files << file.ljust(12 + COL_SPACE)
+    alined_files << file.ljust(filename_max(files) + COL_SPACE)
   end
 
   arys = []
@@ -23,6 +23,14 @@ def main(cols_count)
   arys.transpose.each do |list|
     puts list.join(' ')
   end
+end
+
+def filename_max(files)
+  name_max = 0
+  files.each do |name|
+    name_max = name.length if name_max < name.length
+  end
+  name_max
 end
 
 def rows_count(files, cols_count)
