@@ -5,7 +5,6 @@ COL_SPACE = 2
 
 def main(cols_count)
   files = Dir.glob('*')
-  rows_count = (files.length % cols_count).zero? ? files.length / cols_count : files.length / cols_count + 1
 
   alined_files = []
   files.each do |file|
@@ -13,16 +12,24 @@ def main(cols_count)
   end
 
   arys = []
-  alined_files.each_slice(rows_count) do |ary|
-    arys << if ary.length == rows_count
+  alined_files.each_slice(rows_count(files, cols_count)) do |ary|
+    arys << if ary.length == rows_count(files, cols_count)
               ary
             else
-              ary.values_at(0..(rows_count - 1))
+              ary.values_at(0..(rows_count(files, cols_count) - 1))
             end
   end
 
   arys.transpose.each do |list|
     puts list.join(' ')
+  end
+end
+
+def rows_count(files, cols_count)
+  if files.length % cols_count == 0
+    files.length / cols_count
+  else
+    files.length / cols_count + 1
   end
 end
 
