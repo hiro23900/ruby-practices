@@ -11,16 +11,16 @@ def main(cols_count)
     alined_files << file.ljust(filename_max(files) + COL_SPACE)
   end
 
-  arys = []
+  sliced_files = []
   alined_files.each_slice(rows_count(files, cols_count)) do |ary|
-    arys << if ary.length == rows_count(files, cols_count)
-              ary
-            else
-              ary.values_at(0..(rows_count(files, cols_count) - 1))
-            end
+    sliced_files << if ary.length == rows_count(files, cols_count)
+                      ary
+                    else
+                      ary.values_at(0..(rows_count(files, cols_count) - 1))
+                    end
   end
 
-  arys.transpose.each do |list|
+  sliced_files.transpose.each do |list|
     puts list.join(' ')
   end
 end
