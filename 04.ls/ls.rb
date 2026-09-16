@@ -34,11 +34,7 @@ def filename_max(files)
 end
 
 def rows_count(files, cols_count)
-  if files.length % cols_count == 0
-    files.length / cols_count
-  else
-    files.length / cols_count + 1
-  end
+  files.length.ceildiv(cols_count)
 end
 
 cols_count = 3
