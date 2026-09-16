@@ -26,11 +26,7 @@ def main(cols_count)
 end
 
 def filename_max(files)
-  name_max = 0
-  files.each do |name|
-    name_max = name.length if name_max < name.length
-  end
-  name_max
+  files.max { |file_a, file_b| file_a.length <=> file_b.length }.length
 end
 
 def rows_count(files, cols_count)
