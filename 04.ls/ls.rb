@@ -6,10 +6,8 @@ COL_SPACE = 2
 def main(cols_count)
   files = Dir.glob('*')
 
-  alined_files = []
-  files.each do |file|
-    alined_files << file.ljust(filename_max(files) + COL_SPACE)
-  end
+  col_width = filename_max(files) + COL_SPACE
+  alined_files = files.map { |file| file.ljust(col_width) }
 
   rows_num = rows_count(files, cols_count)
   sliced_files = []
