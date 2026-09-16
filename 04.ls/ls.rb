@@ -11,12 +11,13 @@ def main(cols_count)
     alined_files << file.ljust(filename_max(files) + COL_SPACE)
   end
 
+  rows_num = rows_count(files, cols_count)
   sliced_files = []
-  alined_files.each_slice(rows_count(files, cols_count)) do |ary|
-    sliced_files << if ary.length == rows_count(files, cols_count)
+  alined_files.each_slice(rows_num) do |ary|
+    sliced_files << if ary.length == rows_num
                       ary
                     else
-                      ary.values_at(0..(rows_count(files, cols_count) - 1))
+                      ary.values_at(0...rows_num)
                     end
   end
 
