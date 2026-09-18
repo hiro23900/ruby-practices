@@ -20,7 +20,7 @@ def main(cols_count)
 end
 
 def filename_max(files)
-  files.max { |file_a, file_b| file_a.length <=> file_b.length }.length
+  files.map(&:length).max
 end
 
 def rows_count(files, cols_count)
