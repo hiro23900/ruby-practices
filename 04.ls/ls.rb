@@ -10,9 +10,7 @@ def main(cols_count)
   alined_files = files.map { |file| file.ljust(col_width) }
 
   rows_num = rows_count(files, cols_count)
-  sliced_files = alined_files.each_slice(rows_num).map do |ary|
-    ary.length == rows_num ? ary : ary.values_at(0...rows_num)
-  end
+  sliced_files = alined_files.each_slice(rows_num).map { |ary| ary.values_at(0...rows_num) }
 
   sliced_files.transpose.each do |list|
     puts list.join(' ')
