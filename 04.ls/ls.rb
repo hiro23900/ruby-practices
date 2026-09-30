@@ -4,7 +4,8 @@
 COL_SPACE = 2
 
 def main(cols_count)
-  files = Dir.glob('*')
+  # files = Dir.glob('*')
+  files = Dir.glob('*', File::FNM_DOTMATCH)
 
   col_width = filename_max(files) + COL_SPACE
   alined_files = files.map { |file| file.ljust(col_width) }
