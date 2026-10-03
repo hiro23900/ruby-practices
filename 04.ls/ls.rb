@@ -1,11 +1,21 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'optparse'
+
 COL_SPACE = 2
 
 def main(cols_count)
-  # files = Dir.glob('*')
-  files = Dir.glob('*', File::FNM_DOTMATCH)
+  options = {}
+  opt = OptionParser.new
+  opt.on('-a') { options[:a] = true }
+  opt.parse!(ARGV)
+
+  files = if options[:a]
+            Dir.glob('*', File::FNM_DOTMATCH)
+          else
+            Dir.glob('*')
+          end
 
   col_width = filename_max(files) + COL_SPACE
   alined_files = files.map { |file| file.ljust(col_width) }
