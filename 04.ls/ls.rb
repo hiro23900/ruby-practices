@@ -11,11 +11,11 @@ def main(cols_count)
   opt.on('-a') { options[:a] = true }
   opt.parse!(ARGV)
 
-  files = if options[:a]
-            Dir.glob('*', File::FNM_DOTMATCH)
-          else
-            Dir.glob('*')
-          end
+  files =
+    case options
+    when { a: true } then Dir.glob('*', File::FNM_DOTMATCH)
+    else Dir.glob('*')
+    end
 
   col_width = filename_max(files) + COL_SPACE
   alined_files = files.map { |file| file.ljust(col_width) }
