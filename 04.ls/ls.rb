@@ -6,16 +6,10 @@ require 'optparse'
 COL_SPACE = 2
 
 def main(cols_count)
-  options = {}
+  files = Dir.glob('*')
   opt = OptionParser.new
-  opt.on('-a') { options[:a] = true }
+  opt.on('-a') { (files |= Dir.glob('.*')).sort! }
   opt.parse!(ARGV)
-
-  files =
-    case options
-    when { a: true } then Dir.glob('*', File::FNM_DOTMATCH)
-    else Dir.glob('*')
-    end
 
   col_width = filename_max(files) + COL_SPACE
   alined_files = files.map { |file| file.ljust(col_width) }
