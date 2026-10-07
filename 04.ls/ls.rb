@@ -8,7 +8,8 @@ COL_SPACE = 2
 def main(cols_count)
   files = Dir.glob('*')
   opt = OptionParser.new
-  opt.on('-a') { (files |= Dir.glob('.*')).sort! }
+  options = {}
+  opt.on('-a') { options[:a] = true }
   opt.parse!(ARGV)
 
   col_width = filename_max(files) + COL_SPACE
