@@ -6,7 +6,7 @@ require 'optparse'
 COL_SPACE = 2
 
 def main(cols_count)
-  options = ARGV.getopts('a')
+  options = ARGV.getopts('ar')
 
   files = Dir.glob('*', (options['a'] ? File::FNM_DOTMATCH : 0))
 
