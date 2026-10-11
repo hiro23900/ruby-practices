@@ -6,12 +6,9 @@ require 'optparse'
 COL_SPACE = 2
 
 def main(cols_count)
-  opt = OptionParser.new
-  options = {}
-  opt.on('-a') { options[:a] = true }
-  opt.parse!(ARGV)
+  options = ARGV.getopts('a')
 
-  files = Dir.glob('*', (options[:a] ? File::FNM_DOTMATCH : 0))
+  files = Dir.glob('*', (options['a'] ? File::FNM_DOTMATCH : 0))
 
   col_width = filename_max(files) + COL_SPACE
   alined_files = files.map { |file| file.ljust(col_width) }
