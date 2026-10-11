@@ -8,7 +8,8 @@ COL_SPACE = 2
 def main(cols_count)
   options = ARGV.getopts('ar')
 
-  files = Dir.glob('*', (options['a'] ? File::FNM_DOTMATCH : 0))
+  make_list = Dir.glob('*', (options['a'] ? File::FNM_DOTMATCH : 0))
+  files = options['r'] ? make_list.reverse : make_list
 
   col_width = filename_max(files) + COL_SPACE
   alined_files = files.map { |file| file.ljust(col_width) }
