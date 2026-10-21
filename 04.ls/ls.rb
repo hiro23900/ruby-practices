@@ -21,9 +21,13 @@ def display_attribute(files)
     owner_permission = access_permissions(permission_code[3, 1])
     group_permission = access_permissions(permission_code[4, 1])
     other_permission = access_permissions(permission_code[5, 1])
+    hardlink = File.stat(file).nlink.to_s
     file_name = file_type == 'd' ? "#{file}/" : file
 
-    puts "#{file_type}#{owner_permission}#{group_permission}#{other_permission} #{file_name}"
+    puts [
+      "#{file_type}#{owner_permission}#{group_permission}#{other_permission}",
+      hardlink, file_name
+    ].join(' ')
   end
 end
 
