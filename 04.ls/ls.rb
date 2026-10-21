@@ -18,9 +18,12 @@ def display_attribute(files)
   files.map do |file|
     permission_code = File.stat(file).mode.to_s(8).rjust(6, '0')
     file_type = file_symbol(permission_code[0, 2])
+    owner_permission = access_permissions(permission_code[3, 1])
+    group_permission = access_permissions(permission_code[4, 1])
+    other_permission = access_permissions(permission_code[5, 1])
     file_name = file_type == 'd' ? "#{file}/" : file
 
-    puts "#{file_type} #{file_name}"
+    puts "#{file_type}#{owner_permission}#{group_permission}#{other_permission} #{file_name}"
   end
 end
 
@@ -30,6 +33,18 @@ def file_symbol(number)
     '10' => '-',
     '12' => 'l'
   }[number]
+end
+
+def access_permissions(pattern)
+  {
+    '1' => '--x',
+    '2' => '-w-',
+    '3' => '-wx',
+    '4' => 'r--',
+    '5' => 'r-x',
+    '6' => 'rw-',
+    '7' => 'rwx'
+  }[pattern]
 end
 
 def display_table(files, cols_count)
