@@ -27,11 +27,12 @@ def display_attribute(files)
     username = Etc.getpwuid(File.stat(file).uid).name
     group_name = Etc.getgrgid(File.stat(file).gid).name
     bite_size = File.stat(file).size.to_s.rjust(longest_bite_size)
+    time_stamp = File.mtime(file).strftime('%m月%d %H:%M')
     file_name = file_type == 'd' ? "#{file}/" : file
 
     puts [
       "#{file_type}#{owner_permission}#{group_permission}#{other_permission}",
-      hardlink, username, group_name, bite_size, file_name
+      hardlink, username, group_name, bite_size, time_stamp, file_name
     ].join(' ')
   end
 end
