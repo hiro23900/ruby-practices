@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
+require 'etc'
 
 COL_SPACE = 2
 
@@ -22,11 +23,13 @@ def display_attribute(files)
     group_permission = access_permissions(permission_code[4, 1])
     other_permission = access_permissions(permission_code[5, 1])
     hardlink = File.stat(file).nlink.to_s
+    username = Etc.getpwuid(File.stat(file).uid).name
+    group_name = Etc.getgrgid(File.stat(file).gid).name
     file_name = file_type == 'd' ? "#{file}/" : file
 
     puts [
       "#{file_type}#{owner_permission}#{group_permission}#{other_permission}",
-      hardlink, file_name
+      hardlink, username, group_name, file_name
     ].join(' ')
   end
 end
