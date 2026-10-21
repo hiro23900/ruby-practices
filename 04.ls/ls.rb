@@ -6,12 +6,16 @@ require 'optparse'
 COL_SPACE = 2
 
 def main(cols_count)
-  options = ARGV.getopts('ar')
+  options = ARGV.getopts('arl')
 
   make_list = Dir.glob('*', (options['a'] ? File::FNM_DOTMATCH : 0))
   files = options['r'] ? make_list.reverse : make_list
 
-  display_table(files, cols_count)
+  options['l'] ? display_attribute(files) : display_table(files, cols_count)
+end
+
+def display_attribute(files)
+  puts files
 end
 
 def display_table(files, cols_count)
