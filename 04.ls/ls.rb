@@ -16,6 +16,7 @@ def main(cols_count)
 end
 
 def display_attribute(files)
+  longest_bite_size = files.map { |file| File.stat(file).size }.max.to_s.length
   files.map do |file|
     permission_code = File.stat(file).mode.to_s(8).rjust(6, '0')
     file_type = file_symbol(permission_code[0, 2])
@@ -25,11 +26,12 @@ def display_attribute(files)
     hardlink = File.stat(file).nlink.to_s
     username = Etc.getpwuid(File.stat(file).uid).name
     group_name = Etc.getgrgid(File.stat(file).gid).name
+    bite_size = File.stat(file).size.to_s.rjust(longest_bite_size)
     file_name = file_type == 'd' ? "#{file}/" : file
 
     puts [
       "#{file_type}#{owner_permission}#{group_permission}#{other_permission}",
-      hardlink, username, group_name, file_name
+      hardlink, username, group_name, bite_size, file_name
     ].join(' ')
   end
 end
