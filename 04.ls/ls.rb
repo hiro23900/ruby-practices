@@ -15,7 +15,21 @@ def main(cols_count)
 end
 
 def display_attribute(files)
-  puts files
+  files.map do |file|
+    permission_code = File.stat(file).mode.to_s(8).rjust(6, '0')
+    file_type = file_symbol(permission_code[0, 2])
+    file_name = file_type == 'd' ? "#{file}/" : file
+
+    puts "#{file_type} #{file_name}"
+  end
+end
+
+def file_symbol(number)
+  {
+    '04' => 'd',
+    '10' => '-',
+    '12' => 'l'
+  }[number]
 end
 
 def display_table(files, cols_count)
