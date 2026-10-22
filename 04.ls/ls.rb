@@ -18,6 +18,7 @@ end
 def display_attribute(files)
   longest_bite_size = files.map { |file| File.stat(file).size }.max.to_s.length
   bite_size_sum = 0
+  attributes_list = []
   files.map do |file|
     permission_code = File.stat(file).mode.to_s(8).rjust(6, '0')
     file_type = file_symbol(permission_code[0, 2])
@@ -32,12 +33,15 @@ def display_attribute(files)
     time_stamp = File.mtime(file).strftime('%_m月%_d %H:%M')
     file_name = file_type == 'd' ? "#{file}/" : file
 
-    puts [
+    file_attribute = [
       "#{file_type}#{owner_permission}#{group_permission}#{other_permission}",
       hardlink, username, group_name, bite_size, time_stamp, file_name
     ].join(' ')
+
+    attributes_list << file_attribute
   end
   puts "合計 #{bite_size_sum}"
+  puts attributes_list
 end
 
 def file_symbol(number)
