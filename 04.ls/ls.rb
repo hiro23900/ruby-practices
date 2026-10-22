@@ -29,7 +29,7 @@ def display_attribute(files)
     group_name = Etc.getgrgid(File.stat(file).gid).name
     bite_size = File.stat(file).size.to_s.rjust(longest_bite_size)
     bite_size_sum += (bite_size.to_i / 4096.0).ceil * 4
-    time_stamp = File.mtime(file).strftime('%m月%d %H:%M')
+    time_stamp = File.mtime(file).strftime('%_m月%_d %H:%M')
     file_name = file_type == 'd' ? "#{file}/" : file
 
     puts [
