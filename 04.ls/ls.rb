@@ -21,21 +21,19 @@ def display_attribute(files)
   attributes_list = []
   files.map do |file|
     permission_code = File.stat(file).mode.to_s(8).rjust(6, '0')
-    file_type = file_symbol(permission_code[0, 2])
-    owner_permission = access_permissions(permission_code[3, 1])
-    group_permission = access_permissions(permission_code[4, 1])
-    other_permission = access_permissions(permission_code[5, 1])
-    hardlink = File.stat(file).nlink.to_s
-    username = Etc.getpwuid(File.stat(file).uid).name
-    group_name = Etc.getgrgid(File.stat(file).gid).name
-    bite_size = File.stat(file).size.to_s.rjust(longest_bite_size)
-    bite_size_sum += (bite_size.to_i / 4096.0).ceil * 4
-    time_stamp = File.mtime(file).strftime('%_m月%_d %H:%M')
-    file_name = file_type == 'd' ? "#{file}/" : file
+    bite_size_sum += (File.stat(file).size.to_s.rjust(longest_bite_size).to_i / 4096.0).ceil * 4
 
     file_attribute = [
-      "#{file_type}#{owner_permission}#{group_permission}#{other_permission}",
-      hardlink, username, group_name, bite_size, time_stamp, file_name
+      file_symbol(permission_code[0, 2]) +
+        access_permissions(permission_code[3, 1]) +
+        access_permissions(permission_code[4, 1]) +
+        access_permissions(permission_code[5, 1]),
+      File.stat(file).nlink.to_s,
+      Etc.getpwuid(File.stat(file).uid).name,
+      Etc.getgrgid(File.stat(file).gid).name,
+      File.stat(file).size.to_s.rjust(longest_bite_size),
+      File.mtime(file).strftime('%_m月%_d %H:%M'),
+      file_symbol(permission_code[0, 2]) == 'd' ? "#{file}/" : file
     ].join(' ')
 
     attributes_list << file_attribute
