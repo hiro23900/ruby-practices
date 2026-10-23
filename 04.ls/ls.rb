@@ -19,11 +19,11 @@ def display_attribute(files)
   longest_bite_size = files.map { |file| File.stat(file).size }.max.to_s.length
   bite_size_sum = 0
   attributes_list = []
-  files.map do |file|
+  attributes_list << files.map do |file|
     permission_code = File.stat(file).mode.to_s(8).rjust(6, '0')
     bite_size_sum += (File.stat(file).size.to_s.rjust(longest_bite_size).to_i / 4096.0).ceil * 4
 
-    file_attribute = [
+    [
       file_symbol(permission_code[0, 2]) +
         access_permissions(permission_code[3, 1]) +
         access_permissions(permission_code[4, 1]) +
@@ -35,8 +35,6 @@ def display_attribute(files)
       File.mtime(file).strftime('%_m月%_d %H:%M'),
       file_symbol(permission_code[0, 2]) == 'd' ? "#{file}/" : file
     ].join(' ')
-
-    attributes_list << file_attribute
   end
   puts "合計 #{bite_size_sum}"
   puts attributes_list
