@@ -21,22 +21,25 @@ def display_attribute(files)
   attributes_lists = files.map do |file|
     permission_code = File.stat(file).mode.to_s(8).rjust(6, '0')
     bite_size_sum += (File.stat(file).size.to_s.rjust(longest_bite_size).to_i / 4096.0).ceil * 4
-
-    [
-      file_symbol(permission_code[0, 2]) +
-        access_permissions(permission_code[3, 1]) +
-        access_permissions(permission_code[4, 1]) +
-        access_permissions(permission_code[5, 1]),
-      File.stat(file).nlink.to_s,
-      Etc.getpwuid(File.stat(file).uid).name,
-      Etc.getgrgid(File.stat(file).gid).name,
-      File.stat(file).size.to_s.rjust(longest_bite_size),
-      File.mtime(file).strftime('%_m月%_d %H:%M'),
-      file_symbol(permission_code[0, 2]) == 'd' ? "#{file}/" : file
-    ].join(' ')
+    attributes_list(file, permission_code, longest_bite_size)
   end
   puts "合計 #{bite_size_sum}"
   puts attributes_lists
+end
+
+def attributes_list(file, permission_code, longest_bite_size)
+  [
+    file_symbol(permission_code[0, 2]) +
+      access_permissions(permission_code[3, 1]) +
+      access_permissions(permission_code[4, 1]) +
+      access_permissions(permission_code[5, 1]),
+    File.stat(file).nlink.to_s,
+    Etc.getpwuid(File.stat(file).uid).name,
+    Etc.getgrgid(File.stat(file).gid).name,
+    File.stat(file).size.to_s.rjust(longest_bite_size),
+    File.mtime(file).strftime('%_m月%_d %H:%M'),
+    file_symbol(permission_code[0, 2]) == 'd' ? "#{file}/" : file
+  ].join(' ')
 end
 
 def file_symbol(number)
