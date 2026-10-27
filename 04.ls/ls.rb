@@ -9,7 +9,7 @@ COL_SPACE = 2
 def main(cols_count)
   options = ARGV.getopts('arl')
 
-  make_list = Dir.glob('*', (options['a'] ? File::FNM_DOTMATCH : 0))
+  make_list = Dir.glob('*', (options['a'] ? File::FNM_DOTMATCH : 0)).map { |file| File.directory?(file) ? "#{file}/" : file }
   files = options['r'] ? make_list.reverse : make_list
 
   options['l'] ? display_attribute(files) : display_table(files, cols_count)
@@ -38,7 +38,7 @@ def attributes_list(file, permission_code, longest_bite_size)
     Etc.getgrgid(File.stat(file).gid).name,
     File.stat(file).size.to_s.rjust(longest_bite_size),
     File.mtime(file).strftime('%_m月%_d %H:%M'),
-    file_symbol(permission_code[0, 2]) == 'd' ? "#{file}/" : file
+    file
   ].join(' ')
 end
 
